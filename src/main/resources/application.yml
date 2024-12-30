@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: ${SPRING_PROFILE}
+  liquibase:
+    change-log: classpath:/migration/master-changelog.xml
+  datasource:
+    url: ${DATASOURCE_URL}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update

@@ -1,0 +1,42 @@
+type Query {
+    getAll: [PromotionResponse!]!
+
+    getById(id: ID!): PromotionResponse!
+}
+
+type Mutation {
+    create(request: PromotionRequest!): PromotionResponse!
+
+    update(id: ID!, request: PromotionRequest!): PromotionResponse!
+
+    delete(id: ID!): Boolean!
+}
+
+# Đầu vào cho các mutation
+input PromotionRequest {
+    code: String!
+    description: String
+    expiredDate: String
+    giveAwayDay: String
+    discountPercent: Int
+    archivedMiles: Float
+    plusMiles: Float
+    quantity: Float
+}
+
+# Đầu ra của query và mutation
+type PromotionResponse {
+    id: ID!
+    code: String!
+    description: String
+    expiredDate: String
+    giveAwayDay: String
+    discountPercent: Int
+    archivedMiles: Float
+    plusMiles: Float
+    quantity: Float
+    createdBy: String
+    createdAt: Float
+    lastUpdatedBy: String
+    lastUpdatedAt: Float
+}
