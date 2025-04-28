@@ -1,15 +1,22 @@
 package org.aibles.demo_graphQL.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDateTime;
 import org.aibles.demo_graphQL.dto.request.PromotionRequest;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "promotion")
+@EntityListeners(AuditingEntityListener.class)
 public class PromotionEntity {
 
   @Id
@@ -23,9 +30,17 @@ public class PromotionEntity {
   private Long archivedMiles;
   private Long plusMiles;
   private Long quantity;
+  
+  @CreatedBy
   private String createdBy;
+  
+  @CreatedDate
   private Long createdAt;
+  
+  @LastModifiedBy
   private String lastUpdatedBy;
+  
+  @LastModifiedDate
   private Long lastUpdatedAt;
 
   public PromotionEntity() {
@@ -153,7 +168,7 @@ public class PromotionEntity {
     this.lastUpdatedAt = lastUpdatedAt;
   }
 
-  public static PromotionEntity convertDatabaseToEntity(PromotionRequest request) {
+  public static PromotionEntity fromRequest(PromotionRequest request) {
     PromotionEntity entity = new PromotionEntity();
     entity.setCode(request.getCode());
     entity.setDescription(request.getDescription());

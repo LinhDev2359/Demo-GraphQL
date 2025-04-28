@@ -1,36 +1,35 @@
+scalar DateTime
+
 type Query {
     getAll: [PromotionResponse!]!
-
     getById(id: ID!): PromotionResponse!
 }
 
 type Mutation {
     create(request: PromotionRequest!): PromotionResponse!
-
     update(id: ID!, request: PromotionRequest!): PromotionResponse!
-
     delete(id: ID!): Boolean!
 }
 
-# Đầu vào cho các mutation
+# Input for mutations
 input PromotionRequest {
     code: String!
     description: String
-    expiredDate: String
-    giveAwayDay: String
+    expiredDate: DateTime
+    giveAwayDay: DateTime
     discountPercent: Int
     archivedMiles: Float
     plusMiles: Float
     quantity: Float
 }
 
-# Đầu ra của query và mutation
+# Output of query and mutation
 type PromotionResponse {
     id: ID!
     code: String!
     description: String
-    expiredDate: String
-    giveAwayDay: String
+    expiredDate: DateTime
+    giveAwayDay: DateTime
     discountPercent: Int
     archivedMiles: Float
     plusMiles: Float

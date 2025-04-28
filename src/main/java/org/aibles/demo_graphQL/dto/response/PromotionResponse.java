@@ -16,13 +16,17 @@ public class PromotionResponse {
   private Long archivedMiles;
   private Long plusMiles;
   private Long quantity;
+  private String createdBy;
+  private Long createdAt;
+  private String lastUpdatedBy;
+  private Long lastUpdatedAt;
 
   public PromotionResponse() {
   }
 
   public PromotionResponse(String id, String code, String description, LocalDateTime expiredDate,
       LocalDateTime giveAwayDay, Integer discountPercent, Long archivedMiles, Long plusMiles,
-      Long quantity) {
+      Long quantity, String createdBy, Long createdAt, String lastUpdatedBy, Long lastUpdatedAt) {
     this.id = id;
     this.code = code;
     this.description = description;
@@ -32,6 +36,10 @@ public class PromotionResponse {
     this.archivedMiles = archivedMiles;
     this.plusMiles = plusMiles;
     this.quantity = quantity;
+    this.createdBy = createdBy;
+    this.createdAt = createdAt;
+    this.lastUpdatedBy = lastUpdatedBy;
+    this.lastUpdatedAt = lastUpdatedAt;
   }
 
   public String getId() {
@@ -105,8 +113,40 @@ public class PromotionResponse {
   public void setQuantity(Long quantity) {
     this.quantity = quantity;
   }
+  
+  public String getCreatedBy() {
+    return createdBy;
+  }
 
-  public static PromotionResponse convertDatabaseToEntity(PromotionEntity entity) {
+  public void setCreatedBy(String createdBy) {
+    this.createdBy = createdBy;
+  }
+
+  public Long getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(Long createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public String getLastUpdatedBy() {
+    return lastUpdatedBy;
+  }
+
+  public void setLastUpdatedBy(String lastUpdatedBy) {
+    this.lastUpdatedBy = lastUpdatedBy;
+  }
+
+  public Long getLastUpdatedAt() {
+    return lastUpdatedAt;
+  }
+
+  public void setLastUpdatedAt(Long lastUpdatedAt) {
+    this.lastUpdatedAt = lastUpdatedAt;
+  }
+
+  public static PromotionResponse fromEntity(PromotionEntity entity) {
     PromotionResponse response = new PromotionResponse();
     response.setId(entity.getId());
     response.setCode(entity.getCode());
@@ -117,15 +157,17 @@ public class PromotionResponse {
     response.setArchivedMiles(entity.getArchivedMiles());
     response.setPlusMiles(entity.getPlusMiles());
     response.setQuantity(entity.getQuantity());
+    response.setCreatedBy(entity.getCreatedBy());
+    response.setCreatedAt(entity.getCreatedAt());
+    response.setLastUpdatedBy(entity.getLastUpdatedBy());
+    response.setLastUpdatedAt(entity.getLastUpdatedAt());
     return response;
   }
 
-  public static List<PromotionResponse> convertDatabaseToEntity(
-      List<PromotionEntity> databaseEntityList) {
+  public static List<PromotionResponse> fromEntities(List<PromotionEntity> entities) {
     List<PromotionResponse> promotions = new ArrayList<>();
-    for (PromotionEntity databaseEntity : databaseEntityList) {
-      PromotionResponse promotion = convertDatabaseToEntity(databaseEntity);
-      promotions.add(promotion);
+    for (PromotionEntity entity : entities) {
+      promotions.add(fromEntity(entity));
     }
     return promotions;
   }
